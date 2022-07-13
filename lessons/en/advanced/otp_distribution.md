@@ -445,7 +445,7 @@ Create a file, `config/dev.exs`, and add:
 
 ```elixir
 # config/dev.exs
-use Mix.Config
+import Config
 config :chat, remote_supervisor: fn(recipient) -> {Chat.TaskSupervisor, recipient} end
 ```
 
@@ -453,15 +453,15 @@ Create a file, `config/test.exs` and add:
 
 ```elixir
 # config/test.exs
-use Mix.Config
+import Config
 config :chat, remote_supervisor: fn(_recipient) -> Chat.TaskSupervisor end
 ```
 
 Remember to uncomment this line in `config/config.exs`:
 
 ```elixir
-use Mix.Config
-import_config "#{Mix.env()}.exs"
+import Config
+import_config "#{config_env()}.exs"
 ```
 
 Lastly, we'll update our `Chat.remote_supervisor/1` function to look up and use the function stored in our new application variable:
